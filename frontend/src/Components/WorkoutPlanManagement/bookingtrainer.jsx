@@ -209,24 +209,28 @@ export default function BookingTrainerApp() {
     <div style={styles.formCol}>
       <label style={styles.label}>Gender:</label>
       <div style={styles.radioContainer}>
-        <input
-          type="radio"
-          name="gender"
-          value="Male"
-          checked={formData.gender === "Male"}
-          onChange={handleChange}
-          required
-        />
-        <label style={styles.radioLabel}>Male</label>
-        <input
-          type="radio"
-          name="gender"
-          value="Female"
-          checked={formData.gender === "Female"}
-          onChange={handleChange}
-          required
-        />
-        <label style={styles.radioLabel}>Female</label>
+        <section style={{display: "flex", gap: "0.5rem"}}>
+          <input
+            type="radio"
+            name="gender"
+            value="Male"
+            checked={formData.gender === "Male"}
+            onChange={handleChange}
+            required
+          />
+          <label style={styles.radioLabel}>Male</label>
+        </section>
+        <section style={{display: "flex", gap: "0.5rem"}}>
+          <input
+            type="radio"
+            name="gender"
+            value="Female"
+            checked={formData.gender === "Female"}
+            onChange={handleChange}
+            required
+          />
+          <label style={styles.radioLabel}>Female</label>
+        </section>
       </div>
     </div>
   </div>
@@ -235,24 +239,28 @@ export default function BookingTrainerApp() {
     <div style={styles.formCol}>
       <label style={styles.label}>Payment Status:</label>
       <div style={styles.radioContainer}>
-        <input
-          type="radio"
-          name="paymentStatus"
-          value="pending"
-          checked={formData.paymentStatus === "pending"}
-          onChange={handleChange}
-          required
-        />
-        <label style={styles.radioLabel}>Pending</label>
-        <input
-          type="radio"
-          name="paymentStatus"
-          value="paid"
-          checked={formData.paymentStatus === "paid"}
-          onChange={handleChange}
-          required
-        />
-        <label style={styles.radioLabel}>Paid</label>
+        <section style={{display: "flex", gap: "0.5rem"}}>
+          <input
+              type="radio"
+              name="paymentStatus"
+              value="pending"
+              checked={formData.paymentStatus === "pending"}
+              onChange={handleChange}
+              required
+            />
+            <label style={styles.radioLabel}>Pending</label>
+        </section>
+        <section style={{display: "flex", gap: "0.5rem"}}>
+          <input
+            type="radio"
+            name="paymentStatus"
+            value="paid"
+            checked={formData.paymentStatus === "paid"}
+            onChange={handleChange}
+            required
+          />
+          <label style={styles.radioLabel}>Paid</label>
+        </section>
       </div>
     </div>
 

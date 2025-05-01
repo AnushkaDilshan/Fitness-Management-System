@@ -94,7 +94,7 @@ const TrainerAdminDashboard = () => {
       {/* Add Trainer Form */}
       <form onSubmit={handleAddTrainer} style={{ marginBottom: '30px', display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
         {/* All input fields */}
-        {['full_name', 'email', 'phone_number', 'specialization', 'age', 'gender', 'address'].map((field) => (
+        {['full_name', 'email', 'phone_number', 'specialization', 'age', 'gender', 'address', 'password'].map((field) => (
           <div key={field} style={{ flex: '1 1 20%' }}>
             <label style={{ display: 'block', marginBottom: '8px' }}>
               {field.replace('_', ' ').toUpperCase()}:
@@ -113,7 +113,7 @@ const TrainerAdminDashboard = () => {
               </select>
             ) : (
               <input
-                type={field === 'email' ? 'email' : field === 'age' ? 'number' : 'text'}
+                type={field === 'email' ? 'email' : field === 'age' ? 'number' : field === 'password' ? 'password' : 'text'}
                 value={newTrainer[field]}
                 onChange={(e) => setNewTrainer({ ...newTrainer, [field]: e.target.value })}
                 required
