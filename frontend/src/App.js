@@ -13,7 +13,7 @@ import UpdateWorkoutPlan from './Components/WorkoutPlanManagement/UpdateWorkoutP
 import Admintrainer from './Components/WorkoutPlanManagement/AdminTDashbord.js';
 import ALLWorkoutPlanDetail from './Components/WorkoutPlanManagement/AllWorkoutPlans.js';
 import ViewSavedWorkouts from './Components/WorkoutPlanManagement/ViewSavedWorkout.js';
-
+import MyAppoinment from './Components/WorkoutPlanManagement/MyAppoinment.js';
 
 
 import Signup from './Components/Signup';
@@ -44,7 +44,7 @@ export default function App() {
         <Route path="/tadmin" element={<Admintrainer />} />
         <Route path="/allworkouts" element={<ALLWorkoutPlanDetail />} />
         <Route path="/saveworkouts" element={<ViewSavedWorkouts />} />
-
+        <Route path="/myappoinments" element={<MyAppoinment />} />
 
         <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

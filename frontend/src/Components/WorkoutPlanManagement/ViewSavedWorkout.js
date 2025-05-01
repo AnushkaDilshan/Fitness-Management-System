@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./WorkoutNavbar";
+import jsPDF from "jspdf";
 
 export default function SavedWorkout() {
   const [savedWorkouts, setSavedWorkouts] = useState([]);
@@ -72,15 +73,31 @@ export default function SavedWorkout() {
 
   const viewWorkout = (id) => {
     axios
-    .get(`http://localhost:8070/cworkout/view/${id}`)
-    .then((response) => {
-      const workout = response.data
-      alert(workout.completed);
-    })
-    .catch((err) => {
-      alert("Error progressing workout: " + err.message);
-    });
-  }
+      .get(`http://localhost:8070/cworkout/view/${id}`)
+      .then((response) => {
+        const workout = response.data;
+  
+        if (!workout.completed || workout.completed.length === 0) {
+          alert("No completed dates found.");
+          return;
+        }
+  
+        const doc = new jsPDF();
+  
+        doc.setFontSize(16);
+        doc.text("Workout Completion Report", 20, 20);
+  
+        doc.setFontSize(12);
+        workout.completed.forEach((date, index) => {
+          doc.text(`${index + 1}. ${date}`, 20, 30 + index * 10);
+        });
+  
+        doc.save("workout-completed.pdf");
+      })
+      .catch((err) => {
+        alert("Error fetching workout data: " + err.message);
+      });
+  };
 
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
@@ -102,7 +119,6 @@ export default function SavedWorkout() {
 
       <div style={{ display: "flex" }}>
         <Navbar />
-
         <div style={{ flex: 1, marginLeft: "20px" }}>
           {filteredWorkouts.length > 0 ? (
             filteredWorkouts.map((workout) => (

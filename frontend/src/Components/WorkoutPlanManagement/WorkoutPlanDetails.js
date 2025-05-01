@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "../../style/retrivetable.css";
 import "../../style/header.css";
 import "../../style/bookingtrainer.css"
-import Navbar from "./TrainerNavbar";
+import NavBar from "./TrainerNavbar";
 export default function Doc() {
     const navigate = useNavigate();
     // State hook to store trainer data and search query
@@ -20,9 +20,11 @@ export default function Doc() {
 
     // Function to fetch trainer data from the server
     function getTrainer() {
-        axios.get(`http://localhost:8070/GetAllWorkout/view/`)
+        axios.get(`http://localhost:8070/GetWorkout/tid/${localStorage.getItem("userId")}`)
             .then((res) => {
-                setWorkout(res.data.existingProject); // Store the fetched data in state
+                console.log(res.data);
+                
+                setWorkout(res.data.WorkoutPlan); // Store the fetched data in state
             })
             .catch((err) => {
                 alert(err.message); // Show an alert if there's an error fetching data
@@ -94,13 +96,13 @@ export default function Doc() {
                         />
                     </div>
                 </div>
-              
-                <Navbar />
                 <div className="crbutton"> 
-                <button type="button" className="btn btn-primary" onClick={() => navigate("/Create-Workout-Plan")}>
-                    Create Workout Plan
-                </button>
+                    <button type="button" className="btn btn-primary" onClick={() => navigate("/Create-Workout-Plan")}>
+                        Create Workout Plan
+                    </button>
                 </div>
+                <div style={{ display: "flex", marginTop: "-20px" }}>
+                <NavBar />
                 {/* Section to display trainer cards */}
                 <div className="order-section-two-container">
 
@@ -149,6 +151,7 @@ export default function Doc() {
                         ))}
                 
             
+                </div>
                 </div>
             </div>
 

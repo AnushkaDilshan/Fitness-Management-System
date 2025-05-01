@@ -8,10 +8,9 @@ function NavBar() {
     
       {/* Desktop Navigation */}
       <div className={`${styles.navLinks}`}>
-        <Link to="/dalltrainers" className={styles.navLink}>HOME</Link>
-        <Link to="/viewmytrainers" className={styles.navLink}>MY TRAINERS</Link>
-        <Link to="/allworkouts" className={styles.navLink}>WORKOUT PLANS</Link>
-        <Link to="/saveworkouts" className={styles.navLink}>SAVE</Link>
+        <Link to="/workout-plan-details" className={styles.navLink}>HOME</Link>
+        <Link to="/myappoinments" className={styles.navLink}>MY BOOKING</Link>
+      
       </div>
     </nav>
 

@@ -56,21 +56,21 @@ router.get("/GetWorkout/:id", async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   });
+  router.get("/GetWorkout/tid/:tid", (req, res) => {
+    const tId = req.params.tid;
 
-      router.get("/GetWorkout/tid/:tid", (req, res) => {
-          let tId = req.params.trainerid;
-      
-          WorkoutPlan.find({ trainerid: tId })
-              .then(WorkoutPlan => {
-                  return res.status(200).json({
-                      success: true,
-                      WorkoutPlan: WorkoutPlan
-                  });
-              })
-              .catch(err => {
-                  return res.status(400).json({ success: false, error: err });
-              });
-      });
+    WorkoutPlan.find({ trainerid: tId })
+        .then(plans => {
+            return res.status(200).json({
+                success: true,
+                WorkoutPlan: plans
+            });
+        })
+        .catch(err => {
+            return res.status(400).json({ success: false, error: err });
+        });
+});
+
   
 
   router.put("/UpdateWorkout/:id", async (req, res) => {

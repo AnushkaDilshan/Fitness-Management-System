@@ -25,6 +25,7 @@ const CreateWorkoutPlan = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const CreateWorkoutPlan = {
+      trainerid: `${localStorage.getItem("userId")}`,
       title,
       description,
       difficulty,
