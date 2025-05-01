@@ -1,0 +1,30 @@
+/* Navbar container */
+.navbar {
+  background-color: rgb(125, 233, 161);
+  margin: 12px 24px;
+  padding: 12px 24px;
+  display: flex;
+
+  border-radius: 6px;
+  width: 200px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+}
+
+/* Navigation Links */
+.navLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.navLink {
+  text-decoration: none;
+  color: black;
+  font-size: 15px;
+  font-weight: 600;
+  transition: color 0.3s ease-in-out;
+}
+
+.navLink:hover {
+  color: rgb(66, 184, 105);
+}
