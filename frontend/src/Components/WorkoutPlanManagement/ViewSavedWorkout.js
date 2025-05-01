@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Navbar from "./Navbar";
+import Navbar from "./WorkoutNavbar";
 
 export default function SavedWorkout() {
   const [savedWorkouts, setSavedWorkouts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const userid = "001";
-
+  //const userid = "001";
+  const userid = localStorage.getItem("userId");
   const searchAppointment = (e) => {
     setSearchQuery(e.target.value);
   };
@@ -18,7 +18,7 @@ export default function SavedWorkout() {
   const fetchWorkouts = () => {
     if (userid) {
       axios
-        .get(`http://localhost:8000/saveworkout/view/${userid}`)
+        .get(`http://localhost:8070/saveworkout/view/${userid}`)
         .then((res) => {
           setSavedWorkouts(res.data.data);
         })
@@ -30,7 +30,7 @@ export default function SavedWorkout() {
 
   const handleRemove = (id) => {
     axios
-      .delete(`http://localhost:8000/saveworkout/delete/${id}`)
+      .delete(`http://localhost:8070/saveworkout/delete/${id}`)
       .then(() => {
         // Refresh the list after deletion
         setSavedWorkouts(savedWorkouts.filter((workout) => workout._id !== id));
@@ -48,7 +48,7 @@ export default function SavedWorkout() {
     const currentDate = new Date().toISOString().split('T')[0];
 
     axios
-    .get(`http://localhost:8000/cworkout/view/${id}`)
+    .get(`http://localhost:8070/cworkout/view/${id}`)
     .then((response) => {
       const workout = response.data
       
@@ -56,7 +56,7 @@ export default function SavedWorkout() {
         alert("Workout already completed today.");
       } else {
         axios
-          .put(`http://localhost:8000/saveworkout/done/${id}`)
+          .put(`http://localhost:8070/saveworkout/done/${id}`)
           .then(() => {
             alert("Workout marked as completed");
           })
@@ -72,7 +72,7 @@ export default function SavedWorkout() {
 
   const viewWorkout = (id) => {
     axios
-    .get(`http://localhost:8000/cworkout/view/${id}`)
+    .get(`http://localhost:8070/cworkout/view/${id}`)
     .then((response) => {
       const workout = response.data
       alert(workout.completed);

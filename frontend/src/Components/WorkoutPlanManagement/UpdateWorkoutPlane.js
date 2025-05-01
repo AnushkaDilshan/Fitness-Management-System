@@ -15,7 +15,7 @@ const UpdateWorkoutPlan = () => {
   useEffect(() => {
     const fetchWorkoutPlan = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/GetWorkout/${id}`);
+        const response = await axios.get(`http://localhost:8070/GetWorkout/${id}`);
         const { title, description, difficulty, exercises } = response.data;
         setTitle(title);
         setDescription(description);
@@ -51,7 +51,7 @@ const UpdateWorkoutPlan = () => {
     };
 
     try {
-      await axios.put(`http://localhost:8000/UpdateWorkout/${id}`, updatedWorkoutPlan);
+      await axios.put(`http://localhost:8070/UpdateWorkout/${id}`, updatedWorkoutPlan);
       setMessage('Workout Plan updated successfully!');
       navigate("/workout-plan-details");
     } catch (error) {

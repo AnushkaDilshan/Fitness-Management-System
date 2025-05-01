@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "../../style/retrivetable.css";
 import "../../style/header.css";
 import "../../style/bookingtrainer.css"
+import Navbar from "./TrainerNavbar";
 export default function Doc() {
     const navigate = useNavigate();
     // State hook to store trainer data and search query
@@ -19,7 +20,7 @@ export default function Doc() {
 
     // Function to fetch trainer data from the server
     function getTrainer() {
-        axios.get(`http://localhost:8000/GetAllWorkout/view/`)
+        axios.get(`http://localhost:8070/GetAllWorkout/view/`)
             .then((res) => {
                 setWorkout(res.data.existingProject); // Store the fetched data in state
             })
@@ -32,7 +33,7 @@ export default function Doc() {
         const dataToDelete = workout.find((e) => e._id === id);
 
 
-        axios.delete(`http://localhost:8000/workoutDelete/${id}`)
+        axios.delete(`http://localhost:8070/workoutDelete/${id}`)
             .then(() => {
                 getTrainer();
             })
@@ -93,6 +94,8 @@ export default function Doc() {
                         />
                     </div>
                 </div>
+              
+                <Navbar />
                 <div className="crbutton"> 
                 <button type="button" className="btn btn-primary" onClick={() => navigate("/Create-Workout-Plan")}>
                     Create Workout Plan
@@ -140,12 +143,15 @@ export default function Doc() {
                                         </p>
                                             </div>
                                     </div>
+                                    
                                 </div>
                   
                         ))}
                 
+            
                 </div>
             </div>
+
         </div>
     );
 }

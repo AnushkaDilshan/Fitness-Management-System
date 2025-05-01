@@ -24,7 +24,7 @@ export default function AddTrainerForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:8000/trainer/save", formData)
+        axios.post("http://localhost:8070/trainer/save", formData)
             .then(() => {
                 alert("Trainer added successfully!");
                 setFormData({

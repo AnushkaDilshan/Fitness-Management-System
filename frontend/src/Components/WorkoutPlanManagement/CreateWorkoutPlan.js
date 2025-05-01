@@ -32,7 +32,7 @@ const CreateWorkoutPlan = () => {
     };
 
     try {
-      await axios.post('http://localhost:8000/Create/workoutplan', CreateWorkoutPlan);
+      await axios.post('http://localhost:8070/Create/workoutplan', CreateWorkoutPlan);
       setMessage('Workout Plan created successfully!');
       setTitle('');
       setDescription('');

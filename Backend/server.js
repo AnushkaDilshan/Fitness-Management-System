@@ -13,6 +13,7 @@ const WPAdminMRoutes = require("./routes/WPadminR");
 const trainerRoutes = require("./routes/TrainerR");
 const UserProgressRoutes = require("./routes/UserProgressR");
 
+const userRouter = require("./routes/Users.js");
 app.use(express.json());
 app.use(cors());
 
@@ -22,9 +23,10 @@ app.use(UserRoutes);
 app.use(WPAdminMRoutes);
 app.use(trainerRoutes);
 app.use(UserProgressRoutes);
-
-const PORT = 8000;
-const DB_URL = 'mongodb+srv://poojani:poojani@cluster0.59rx6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+app.use("/user", userRouter);
+const PORT = 8070;
+//const DB_URL = 'mongodb+srv://poojani:poojani@cluster0.59rx6.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const DB_URL = 'mongodb+srv://user:0cywcp5661vH4IAs@cluster0.a2lzh.mongodb.net/user_db?retryWrites=true&w=majority&appName=Cluster0'
 
 mongoose.connect(DB_URL)
 

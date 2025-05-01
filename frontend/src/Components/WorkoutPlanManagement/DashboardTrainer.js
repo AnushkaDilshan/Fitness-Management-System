@@ -15,7 +15,7 @@ const TrainerDashboard = () => {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/trainer/dashboard")
+    axios.get("http://localhost:8070/api/trainer/dashboard")
       .then(response => setDashboardData(response.data))
       .catch(error => console.error("Error fetching dashboard data:", error));
   }, []);

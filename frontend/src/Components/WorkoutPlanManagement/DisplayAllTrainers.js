@@ -6,19 +6,19 @@ import "../../style/retrivetable.css";
 import "../../style/header.css";
 // import "../../../public/assets/Tprofile.jpg"
 import profilePicture from "../../images/Tprofile.jpg";
-import Navbar from "./Navbar";
+import Navbar from "./WorkoutNavbar";
 
 export default function Doc() {
     const [trainer, setTrainer] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
-
+    const trainerid = localStorage.getItem("userId");
     useEffect(() => {
         getTrainer(); 
     }, []);
 
     
     function getTrainer() {
-        axios.get(`http://localhost:8000/trainer/view/`)
+        axios.get(`http://localhost:8070/trainer/view/`)
             .then((res) => {
                 setTrainer(res.data.existingProject); 
             })
@@ -26,6 +26,20 @@ export default function Doc() {
                 alert(err.message); 
             });
     }
+    // function getTrainer(trainerid) {
+    //     axios.get(`http://localhost:8070/GetWorkout/tid/${trainerid}`)
+    //         .then((res) => {
+    //             if (res.data.success) {
+    //                 setWorkout(res.data.WorkoutPlan); // Store the fetched data in state
+    //             } else {
+    //                 alert("Failed to fetch workouts");
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             alert(err.message); // Show an alert if there's an error fetching data
+    //         });
+    // }
+    
 
     // const deleteData = (id) => {
     //     const dataToDelete = emergency.find((e) => e._id === id);

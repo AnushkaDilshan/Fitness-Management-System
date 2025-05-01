@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "../../style/retrivetable.css";
 import "../../style/header.css";
 import "../../style/bookingtrainer.css";
-import Navbar from "./Navbar";
+import Navbar from "./WorkoutNavbar";
 export default function Doc() {
   const navigate = useNavigate();
   // State hook to store trainer data and search query
@@ -21,7 +21,7 @@ export default function Doc() {
   // Function to fetch trainer data from the server
   function getTrainer() {
     axios
-      .get(`http://localhost:8000/GetAllWorkout/view/`)
+      .get(`http://localhost:8070/GetAllWorkout/view/`)
       .then((res) => {
         setWorkout(res.data.existingProject); // Store the fetched data in state
       })
@@ -34,7 +34,7 @@ export default function Doc() {
     const dataToDelete = workout.find((e) => e._id === id);
 
     axios
-      .delete(`http://localhost:8000/workoutDelete/${id}`)
+      .delete(`http://localhost:8070/workoutDelete/${id}`)
       .then(() => {
         getTrainer();
       })
@@ -75,8 +75,8 @@ export default function Doc() {
     setSearchQuery(title.target.value); // Update the search query state with input value
   };
   const saveWorkout = (workoutid) => {
-    //const userid = localStorage.getItem("userID"); // or however you get the current user ID
-    const userid = "001";
+    const userid = localStorage.getItem("userId"); // or however you get the current user ID
+    //const userid = "001";
     if (!userid) {
       alert("User ID not found. Please log in.");
       return;
@@ -88,7 +88,7 @@ export default function Doc() {
     };
   
     axios
-      .post("http://localhost:8000/saveworkout/save", data)
+      .post("http://localhost:8070/saveworkout/save", data)
       .then(() => {
         alert("Workout saved successfully!");
       })

@@ -25,7 +25,7 @@ const TrainerAdminDashboard = () => {
 
   const fetchTrainers = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/trainer/view');
+      const response = await axios.get('http://localhost:8070/trainer/view');
       setTrainers(response.data.existingProject);
     } catch (error) {
       console.error(error);
@@ -35,7 +35,7 @@ const TrainerAdminDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/trainer/delete/${id}`);
+      await axios.delete(`http://localhost:8070/trainer/delete/${id}`);
       setMessage('Trainer deleted successfully');
       fetchTrainers();
     } catch (error) {
@@ -47,7 +47,7 @@ const TrainerAdminDashboard = () => {
   const handleAddTrainer = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/trainer/save', newTrainer);
+      await axios.post('http://localhost:8070/trainer/save', newTrainer);
       setMessage('Trainer added successfully');
       fetchTrainers();
       setNewTrainer({
