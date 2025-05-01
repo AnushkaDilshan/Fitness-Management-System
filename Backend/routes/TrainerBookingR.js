@@ -165,13 +165,61 @@ router.get("/saveworkout/view/:userid", async (req, res) => {
 router.delete("/saveworkout/delete/:id", async (req, res) => {
  
     try {
-        await SavedWorkoutM.findByIdAndDelete(req.params.id);
+        await SavedWorkoutM.findOneAndDelete({ workoutid: req.params.id });
         res.status(200).json({ success: " deleted successfully" });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
+});
+
+router.put("/saveworkout/done/:id", async (req, res) => {
+    try {
+      const currentDate = new Date().toISOString().split('T')[0];
+      
+      const updated = await SavedWorkoutM.findOneAndUpdate(
+        { workoutid: req.params.id },
+        { $push: { completed: currentDate } },
+        { new: true, upsert: true }
+      );
+  
+      if (!updated) {
+        return res.status(404).json({ error: "Workout not found" });
+      }
+  
+      res.status(200).json({ success: "Workout marked as completed", data: updated });
+    } catch (err) {
+      console.error(err);  // Log the error
+      res.status(400).json({ error: err.message });
+    }
   });
 
 
+  router.get('/cworkout/view/:id', async (req, res) => {
+    try {
+        const cworkout = await SavedWorkoutM.findOne({ workoutid: req.params.id });
+        
+        if (!cworkout) {
+            return res.status(404).json({ error: "Workout not found" });
+        }
+          
+        if (!cworkout.completed) {
+            cworkout.completed = [];
+        }
+
+        res.status(200).json(cworkout);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+});
+
+router.get('/cworkout/view', async (req, res) => {
+    try {
+        const cworkout = await SavedWorkoutM.find();
+        res.status(200).json(cworkout);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+});
+  
 
 module.exports = router;

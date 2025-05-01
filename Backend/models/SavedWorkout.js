@@ -11,8 +11,10 @@ const SavedWorkoutSchema = new mongoose.Schema(
         type:String,
         required:true
     },
-
-
+    completed: [{
+        type: String,
+        required: false
+    }]
 },
 
 { timestamps: true }

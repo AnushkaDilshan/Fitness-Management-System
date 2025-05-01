@@ -44,6 +44,44 @@ export default function SavedWorkout() {
     workout.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handleDone = (id) => {
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    axios
+    .get(`http://localhost:8000/cworkout/view/${id}`)
+    .then((response) => {
+      const workout = response.data
+      
+      if (workout.completed && workout.completed.includes(currentDate)) {
+        alert("Workout already completed today.");
+      } else {
+        axios
+          .put(`http://localhost:8000/saveworkout/done/${id}`)
+          .then(() => {
+            alert("Workout marked as completed");
+          })
+          .catch((err) => {
+            alert("Error progressing workout: " + err.message);
+          });
+      }
+    })
+    .catch((err) => {
+      alert("Error fetching workout data: " + err.message);
+    });
+  }
+
+  const viewWorkout = (id) => {
+    axios
+    .get(`http://localhost:8000/cworkout/view/${id}`)
+    .then((response) => {
+      const workout = response.data
+      alert(workout.completed);
+    })
+    .catch((err) => {
+      alert("Error progressing workout: " + err.message);
+    });
+  }
+
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
       <div style={{ marginBottom: "20px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -83,20 +121,53 @@ export default function SavedWorkout() {
                 <p><strong>Description:</strong> {workout.description}</p>
                 <p><strong>Difficulty:</strong> {workout.difficulty}</p>
                 <p><strong>Created At:</strong> {workout.createdAt.split("T")[0]}</p>
-                <button
-                  onClick={() => handleRemove(workout._id)}
-                  style={{
-                    marginTop: "10px",
-                    padding: "6px 12px",
-                    borderRadius: "5px",
-                    backgroundColor: "#e74c3c",
-                    color: "#fff",
-                    border: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  Remove
-                </button>
+                <section style={{
+                  display: "flex",
+                  justifyContent: "space-between"
+                }}>
+                  <button
+                    onClick={() => handleDone(workout._id)}
+                    style={{
+                      marginTop: "10px",
+                      padding: "6px 12px",
+                      borderRadius: "5px",
+                      backgroundColor: "#28a745",
+                      color: "#fff",
+                      border: "none",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Toady Workout is Completed
+                  </button>
+                  <button
+                    onClick={() => viewWorkout(workout._id)}
+                    style={{
+                      marginTop: "10px",
+                      padding: "6px 12px",
+                      borderRadius: "5px",
+                      backgroundColor: "#2563EB",
+                      color: "#fff",
+                      border: "none",
+                      cursor: "pointer",
+                    }}
+                  >
+                    View Status
+                  </button>
+                  <button
+                    onClick={() => handleRemove(workout._id)}
+                    style={{
+                      marginTop: "10px",
+                      padding: "6px 12px",
+                      borderRadius: "5px",
+                      backgroundColor: "#e74c3c",
+                      color: "#fff",
+                      border: "none",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Remove
+                  </button>
+                </section>
               </div>
             ))
           ) : (
